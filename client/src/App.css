@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  color: white;
+  background-color: #242424;
+  padding: 32px;
+}
+
+h1 {
+  padding-bottom: 30px;
+}
+
+h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: #242424;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 8px;
+  border-style: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
+select {
+  align-self: flex-start;
+  padding: 10px;
+}
+
+header button {
+  background-color: rgb(106, 106, 167);
+  padding: 10px;
+  align-self: flex-start;
+}
+
+.motorcycle-list img {
+  width: 100%;
+  height: auto;
+}
+
+.motorcycle-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  );
+  gap: 32px;
+}
+.motorcycle-list li {
+  box-shadow: 0px 0px 30px #000;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  color: black
+}
+
+.description {
+  padding: 10px;
+}
+
+.price {
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0px;
+}
+
+/* Login */
+.container-login img {
+  width: 100%;
+  height: auto;
+}
+.container-login {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.form {
+  padding: 0px 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+form {
+  display: grid;
+  gap: 15px;
+}
+input {
+  padding: 7px 10px;
+  border-radius: 5px;
+  /* box-shadow: 0px 1px 5px #ffffff; */
+  border-style: none;
+}
+.btn-login {
+  margin-top: 30px;
+  padding: 10px;
+  font-weight: 600;
+  background-color: rgb(106, 106, 167);
+  color: white;
+  cursor: pointer;
+}
+
+/* Calender */
+.calender {
+  text-align: center;
+  background-color: #696969;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  gap: 10px;
+}
+.calender ol {
+  padding: 0px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.calender li {
+  text-align: right;
+}
+.first-day {
+  grid-column-start: 2;
+}
+.day-name {
+  background-color: #696969;
+  font-weight: bold;
+  text-align: center;
+}
