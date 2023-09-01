@@ -32,7 +32,7 @@ export default function Calender() {
     const {id} = useParams();
 
     useEffect(()=> {
-        MotorcycleService.getMotorcycle(id).then((response)=> {
+        MotorcycleService.getMotorcycle(id,localStorage.token).then((response)=> {
             setMotorcycleId(response.data.id);
             setMotorcycle(response.data);
             setTotalPrice(response.data.price);
@@ -46,10 +46,15 @@ export default function Calender() {
     },[dateRental,dateReturn])
 
     const addRental = (e) => {
+        const config = {
+            headers: {
+                'Authorization': localStorage.token
+            }
+        }
         e.preventDefault();
         const rentalData = {dateRental, dateReturn, totalPrice, user:{ id: userId }, motorcycle:{ id: motorcycleId }}
         // console.log(rentalData);
-        RentalService.addRental(rentalData).then((response)=> {
+        RentalService.addRental(rentalData, config).then((response)=> {
             console.log(response.data);
         }).catch(error=> {
             console.log(error);

@@ -23,6 +23,10 @@ export default function Header({changeFilters}) {
         }))
     }
 
+    const logOut = () => {
+        localStorage.removeItem('token');
+    }
+
     return (
         <header>
             <h1>Alquiler de Motos</h1>

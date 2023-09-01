@@ -34,13 +34,10 @@ public class JWTUtil {
      * @param subject
      * @return
      */
+    SecretKey signingKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     public String create(String id, String subject) {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
-
-        SecretKey signingKey = Keys.secretKeyFor(signatureAlgorithm);
 
         JwtBuilder builder = Jwts.builder().setId(id).setIssuedAt(now).setSubject(subject).setIssuer(issuer)
                 .signWith(signingKey);
@@ -62,7 +59,7 @@ public class JWTUtil {
      */
     public String getValue(String jwt) {
         Claims claims = Jwts.parserBuilder()
-                .setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(key)))
+                .setSigningKey(signingKey)
                 .build()
                 .parseClaimsJws(jwt)
                 .getBody();
@@ -77,9 +74,8 @@ public class JWTUtil {
      * @return
      */
     public String getKey(String jwt) {
-        Claims claims = Jwts.parserBuilder().
-                setSigningKey(Keys.hmacShaKeyFor(Base64.getDecoder().decode(key)))
-                .build()
+        Claims claims = Jwts.parser().
+                setSigningKey(signingKey)
                 .parseClaimsJws(jwt)
                 .getBody();
 

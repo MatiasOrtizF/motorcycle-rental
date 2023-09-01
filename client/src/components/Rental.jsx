@@ -16,7 +16,7 @@ export default function Rental({motorcycles , changeFilters}) {
                             <h3>{motorcycle.motorcycleName}</h3>
                             <div className='price'>
                                 <h4>${motorcycle.price}/day</h4>
-                                <Link to={`/rental/${motorcycle.id}`}>
+                                <Link to={localStorage.token ? `/rental/${motorcycle.id}` : `/login`}>
                                     <button>Alquilar</button>
                                 </Link>
                             </div>

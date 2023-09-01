@@ -6,8 +6,14 @@ class MotorcycleService {
     getAllMotorcycle() {
         return axios.get(MOTORCYCLE_BASE);
     }
-    getMotorcycle(motorcycleId) {
-        return axios.get(MOTORCYCLE_BASE + '/' + motorcycleId);
+    getMotorcycle(motorcycleId, token) {
+        const config = {
+            headers: {
+                'Authorization': token,
+                'Content-Type': 'application/json'
+            }
+        };
+        return axios.get(MOTORCYCLE_BASE + '/' + motorcycleId, config);
     }
 }
 
