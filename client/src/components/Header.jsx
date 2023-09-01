@@ -34,9 +34,13 @@ export default function Header({changeFilters}) {
             <label for="price">Precio a partir de: </label>
             <input type="range" id="volumen" min="0" max="205" step="1" onChange={hadleChangeMinPrice}/>
             <span>{minPrice}</span>
-            <Link to='/login'>
-                <button>Sing in</button>
-            </Link>
+            {localStorage.token ?
+                <span>{localStorage.email}</span>
+                    :
+                <Link to='/login'>
+                    <button>Sing in</button>
+                </Link>
+            }
         </header>
     )
 }
