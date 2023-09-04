@@ -1,11 +1,14 @@
 package com.rental.motocicly.controllers;
 
+import com.rental.motocicly.exception.ResourceNotFoundException;
+import com.rental.motocicly.models.Motorcycle;
 import com.rental.motocicly.models.User;
 import com.rental.motocicly.repository.UserRepository;
 import com.rental.motocicly.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +25,13 @@ public class UserController {
     @GetMapping("/user")
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        User user = userRepository.findById(id)
+            .orElseThrow(()-> new ResourceNotFoundException("The user with this id: " + id + " is incorrect"));
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/user")

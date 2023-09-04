@@ -30,7 +30,7 @@ public class MotorcycleController {
             String userId = jwtUtil.getKey(token);
             if(userId!=null) {
             Motorcycle motorcycle = motorcycleRepository.findById(id)
-                    .orElseThrow(()-> new ResourceNotFoundException("La moto con ese ID no existe: + id "));
+                    .orElseThrow(()-> new ResourceNotFoundException("The motorcycle with this id: " + id + " is incorrect"));
             return ResponseEntity.ok(motorcycle);
             }
             return null;

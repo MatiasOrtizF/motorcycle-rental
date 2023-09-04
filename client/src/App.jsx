@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { useState , useEffect } from 'react'
 import './app.css'
 import Rental from './components/rental'
 import Login from './components/login'
 import Calender from './components/Calender'
-import { useState , useEffect } from 'react'
 import MotorcycleService from "./services/MotorcycleService";
+import MyRentals from './components/MyRentals'
 
 function App() {
   const [motorcycles, setMotorcycles] = useState([]);
@@ -40,8 +41,9 @@ function App() {
       <main>
         <Routes>
           <Route exact path="/" element={<Rental motorcycles={filteredMotorcycles} changeFilters={setFilters} />}></Route>
-          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/login' element={<Login/>} ></Route>
           <Route path='/rental/:id' element={<Calender/>} ></Route>
+          <Route path='/my-rentals' element={<MyRentals/>} ></Route>
         </Routes> 
       </main>  
     </BrowserRouter>
