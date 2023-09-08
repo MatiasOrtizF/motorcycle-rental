@@ -27,7 +27,7 @@ export default function Calender() {
     const [dateRental, setDateRental] = useState('');
     const [dateReturn, setDateReturn] = useState('');
     const [totalPrice, setTotalPrice] = useState(0);
-    const [userId, setUserId] = useState(1);
+    const [userId, setUserId] = useState(localStorage.userId);
     const [motorcycleId, setMotorcycleId] = useState(15);
     const {id} = useParams();
 
@@ -106,10 +106,10 @@ export default function Calender() {
                 </div>
                 
                 <div className="buttons">
-                    <button onClick={(e)=> addRental(e)}>Alquilar</button>
                     <Link to='/'>
                         <button>Cancel</button>
                     </Link>
+                    <button onClick={(e)=> addRental(e)}>Alquilar</button>
                 </div>
                 
                 {/* <ol>

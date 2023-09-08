@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, json } from "react-router-dom";
 
 export default function Header({changeFilters}) {
     const [minPrice, setMinPrice] = useState(0)
     const [openMenu, setOpenMenu] = useState(false);
+
+    useEffect(()=> {
+        const priceInput = document.getElementById("price");
+        priceInput.value = 0;
+    },[])
 
     const hadleChangeMinPrice = (event) => {
         setMinPrice(event.target.value)
@@ -50,8 +55,8 @@ export default function Header({changeFilters}) {
                     </button>
                     {openMenu &&
                         <ol>
-                            <li>Matias Ortiz</li>
-                            <li>{localStorage.email}</li>
+                            <li>{localStorage.userName + " " + localStorage.userLastName}</li>
+                            <li>{localStorage.userEmail}</li>
                             <Link to='/my-rentals'>
                                 <li><button>My Rentals</button></li>
                             </Link>

@@ -10,9 +10,13 @@ export default function Login() {
         const userData = {email, password}
         LoginService.login(userData).then((response)=> {
             if(response.data != "FAIL") {
-                localStorage.token = response.data;
-                localStorage.email = email;
+                localStorage.token = response.data.token;
+                localStorage.userId = response.data.user.id;
+                localStorage.userName = response.data.user.name;
+                localStorage.userLastName = response.data.user.lastName;
+                localStorage.userEmail = email;
                 window.location.href = '/';
+                console.log(response.data.user);
             }else {
                 alert("Password or email is incorrect");
             }

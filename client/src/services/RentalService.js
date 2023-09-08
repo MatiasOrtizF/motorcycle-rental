@@ -6,6 +6,9 @@ class RentalService {
     addRental(rentalData) {
         return axios.post(RENTAL_BASE, rentalData);
     }
+    getUserRental(userId) {
+        return axios.get(RENTAL_BASE + "/" + userId);
+    }
 }
 
 export default new RentalService();
