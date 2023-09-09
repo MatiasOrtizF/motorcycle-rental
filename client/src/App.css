@@ -116,7 +116,11 @@ header ol li button:hover {
   background-color: white;
   border-radius: 8px;
   overflow: hidden;
-  color: black
+  color: black;
+}
+
+.motorcycle-list img {
+  max-width: 350px;
 }
 
 .motorcycle-list button {
@@ -226,6 +230,23 @@ form button {
   background-color: rgb(106, 167, 114);
 }
 
+/* My Rental */
+.rental-date {
+  display: flex;
+  justify-content: space-between;
+}
+.total-price {
+  color: rgb(63, 182, 103);
+}
+.buttons-rental {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0px 5px 0px;
+}
+.buttons-rental button:first-child {
+  background-color: rgb(106, 167, 114);
+}
+
 /* Media Querys */
 
 @media (width < 680px) {
@@ -242,5 +263,19 @@ form button {
   }
   .filter-price {
     margin: 20px 0px;
+  }
+  .motorcycle-list img {
+    max-width: 500px;
+  }
+}
+
+@media (width < 900px) {
+  .img-login {
+    display: none;
+  }
+  .container-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
