@@ -24,4 +24,19 @@ public class Motorcycle {
 
     @Column(name = "price")
     private Integer Price;
+
+    @Column(name = "length")
+    private Float Length;
+
+    @Column(name = "torque")
+    private Integer Torque;
+
+    @Column(name = "weight")
+    private Integer Weight;
+
+    @Column(name = "fuel")
+    private Float Fuel;
+
+    @Column(name = "rating")
+    private Float Rating;
 }

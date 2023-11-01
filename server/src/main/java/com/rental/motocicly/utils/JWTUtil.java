@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -74,11 +73,15 @@ public class JWTUtil {
      * @return
      */
     public String getKey(String jwt) {
-        Claims claims = Jwts.parser().
-                setSigningKey(signingKey)
-                .parseClaimsJws(jwt)
-                .getBody();
+        try {
+            Claims claims = Jwts.parser().
+                    setSigningKey(signingKey)
+                    .parseClaimsJws(jwt)
+                    .getBody();
 
-        return claims.getId();
+            return claims.getId();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -12,24 +12,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5173/")
+@CrossOrigin(origins = {"http://localhost:5173/", "http://localhost:19006/", "192.168.0.9:8081"})
+@RequestMapping("/api/rental")
 @RestController
 public class RentalController {
     @Autowired
     private RentalRepository rentalRepository;
 
-    @GetMapping("/rental")
+    @GetMapping
     public List<Rental> getAllRental() {
         return rentalRepository.findAll();
     }
 
-    @GetMapping("/rental/{userId}")
-    public  List<Rental> getUserRental(@PathVariable Long userId) {
+    @GetMapping("{userId}")
+    public List<Rental> getUserRental(@PathVariable Long userId) {
         List <Rental> list = rentalRepository.findByUserId(userId);
             return list;
     }
 
-    @PostMapping("/rental")
+    @PostMapping
     public Rental addRental(@RequestBody Rental rental) {
         return rentalRepository.save(rental);
     }
