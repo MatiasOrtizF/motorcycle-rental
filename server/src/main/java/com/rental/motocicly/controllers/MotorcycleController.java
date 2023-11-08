@@ -1,6 +1,6 @@
 package com.rental.motocicly.controllers;
 
-import com.rental.motocicly.exception.RatingAlreadyExistsException;
+import com.rental.motocicly.exception.AlreadyExistsException;
 import com.rental.motocicly.exception.UnauthorizedException;
 import com.rental.motocicly.models.Motorcycle;
 import com.rental.motocicly.services.MotorcycleService;
@@ -52,8 +52,8 @@ public class MotorcycleController {
     public ResponseEntity<?> updateRatingMotorcycle(@PathVariable Long id, @RequestParam Integer newRating, @RequestHeader(value = "Authorization") String token) {
         try {
             return ResponseEntity.ok(motorcycleService.updateRatingMotorcycle(id, newRating, token));
-        } catch (RatingAlreadyExistsException e) {
-            return ResponseEntity.badRequest().body("The user has already rated this motorcycle.");
+        } catch (AlreadyExistsException e) {
+            return ResponseEntity.badRequest().body("The user has already rated this motorcycle");
         } catch (UnauthorizedException e) {
             return ResponseEntity.badRequest().body("Unauthorized: invalid token");
         }

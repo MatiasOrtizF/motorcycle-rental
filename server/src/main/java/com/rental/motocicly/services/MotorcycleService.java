@@ -1,6 +1,6 @@
 package com.rental.motocicly.services;
 
-import com.rental.motocicly.exception.RatingAlreadyExistsException;
+import com.rental.motocicly.exception.AlreadyExistsException;
 import com.rental.motocicly.exception.ResourceNotFoundException;
 import com.rental.motocicly.exception.UnauthorizedException;
 import com.rental.motocicly.models.Motorcycle;
@@ -65,7 +65,7 @@ public class MotorcycleService {
 
                 motorcycle.setRating(ratingRepository.calculateRatingForMoto(id));
                 return motorcycleRepository.save(motorcycle);
-            } throw new RatingAlreadyExistsException("The user has already rated this motorcycle.");
+            } throw new AlreadyExistsException("The user has already rated this motorcycle");
         } throw new UnauthorizedException("Unauthorized: invalid token");
     }
 }
