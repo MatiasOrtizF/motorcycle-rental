@@ -1,9 +1,11 @@
 package com.rental.motocicly.controllers;
 
 import com.rental.motocicly.exception.ResourceNotFoundException;
+import com.rental.motocicly.exception.UnauthorizedException;
 import com.rental.motocicly.models.Rental;
 import com.rental.motocicly.models.User;
 import com.rental.motocicly.repository.RentalRepository;
+import com.rental.motocicly.services.RentalService;
 import com.rental.motocicly.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +18,29 @@ import java.util.List;
 @RequestMapping("/api/rental")
 @RestController
 public class RentalController {
-    @Autowired
-    private RentalRepository rentalRepository;
 
-    @GetMapping
-    public List<Rental> getAllRental() {
-        return rentalRepository.findAll();
+    private final RentalService rentalService;
+
+    @Autowired
+    RentalController(RentalService rentalService) {
+        this.rentalService = rentalService;
     }
 
-    @GetMapping("{userId}")
-    public List<Rental> getUserRental(@PathVariable Long userId) {
-        List <Rental> list = rentalRepository.findByUserId(userId);
-            return list;
+    @GetMapping
+    public ResponseEntity<?> getAllRental(@RequestHeader(value = "Authorization") String token) {
+        try {
+            return ResponseEntity.ok(rentalService.getAllRental(token));
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.badRequest().body("Unauthorized: invalid token");
+        }
     }
 
     @PostMapping
-    public Rental addRental(@RequestBody Rental rental) {
-        return rentalRepository.save(rental);
+    public ResponseEntity<?> addRental(@RequestHeader(value = "Authorization") String token, @RequestBody Rental rental) {
+        try {
+            return ResponseEntity.ok(rentalService.addRental(token, rental));
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.badRequest().body("Unauthorized: invalid token");
+        }
     }
 }

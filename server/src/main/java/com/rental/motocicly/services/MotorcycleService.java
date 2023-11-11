@@ -54,7 +54,7 @@ public class MotorcycleService {
             String userId = jwtUtil.getKey(token);
             if(!ratingRepository.existsByMotorcycleIdAndUserId(id, Long.valueOf(userId))) {
                 Motorcycle motorcycle = motorcycleRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("The motorcycle with this id: " + id + " is incorrect"));
-                User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(()-> new ResourceNotFoundException("The user with this id: " + id + " is incorrect"));;
+                User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(()-> new ResourceNotFoundException("The user with this id: " + id + " is incorrect"));
 
                 Rating rating = new Rating();
                 rating.setRating(newRating);

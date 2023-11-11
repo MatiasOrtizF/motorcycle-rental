@@ -3,7 +3,7 @@ package com.rental.motocicly.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -16,10 +16,10 @@ public class Rental {
     private Long id;
 
     @Column(name = "date_rental")
-    private Date dateRental;
+    private LocalDate dateRental;
 
     @Column(name = "date_return")
-    private Date dateReturn;
+    private LocalDate dateReturn;
 
     @Column(name = "total_price")
     private Integer totalPrice;
