@@ -4,6 +4,7 @@ import com.rental.motocicly.exception.UnauthorizedException;
 import com.rental.motocicly.models.User;
 import com.rental.motocicly.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class UserController {
         try {
             return ResponseEntity.ok(userService.getRentalsByUser(token));
         } catch (UnauthorizedException e) {
-            return ResponseEntity.badRequest().body("Unauthorized: invalid token");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
         }
     }
 }

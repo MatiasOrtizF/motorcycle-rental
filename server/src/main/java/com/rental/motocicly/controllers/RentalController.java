@@ -8,6 +8,7 @@ import com.rental.motocicly.repository.RentalRepository;
 import com.rental.motocicly.services.RentalService;
 import com.rental.motocicly.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class RentalController {
         try {
             return ResponseEntity.ok(rentalService.getAllRental(token));
         } catch (UnauthorizedException e) {
-            return ResponseEntity.badRequest().body("Unauthorized: invalid token");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
         }
     }
 
@@ -40,7 +41,7 @@ public class RentalController {
         try {
             return ResponseEntity.ok(rentalService.addRental(token, rental));
         } catch (UnauthorizedException e) {
-            return ResponseEntity.badRequest().body("Unauthorized: invalid token");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
         }
     }
 }

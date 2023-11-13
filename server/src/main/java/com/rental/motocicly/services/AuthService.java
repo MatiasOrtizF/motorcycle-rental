@@ -1,5 +1,6 @@
 package com.rental.motocicly.services;
 
+import com.rental.motocicly.exception.InvalidCredentialsException;
 import com.rental.motocicly.exception.UnauthorizedException;
 import com.rental.motocicly.models.LoginResponse;
 import com.rental.motocicly.models.User;
@@ -47,7 +48,6 @@ public class AuthService {
 
                 return response;
             }
-        }
-        throw new RuntimeException("Email or password is incorrect");
+        } throw new InvalidCredentialsException("Invalid email or password");
     }
 }

@@ -3,6 +3,7 @@ package com.rental.motocicly.services;
 import com.rental.motocicly.exception.AlreadyExistsException;
 import com.rental.motocicly.exception.ResourceNotFoundException;
 import com.rental.motocicly.exception.UnauthorizedException;
+import com.rental.motocicly.exception.UserMismatchException;
 import com.rental.motocicly.models.Motorcycle;
 import com.rental.motocicly.models.Save;
 import com.rental.motocicly.models.User;
@@ -55,6 +56,20 @@ public class SaveService {
 
                 return saveRepository.save(save);
             } throw new AlreadyExistsException("The user has already saved this motorcycle");
+        } throw new UnauthorizedException("Unauthorized: invalid token");
+    }
+
+    public boolean unsaveMotorcycle(Long id, String token) {
+        if(authService.validationToken(token)) {
+            String userId = jwtUtil.getKey(token);
+            User user = userRepository.findById(Long.valueOf(userId)).orElseThrow(()-> new ResourceNotFoundException("The user with this id: " + id + " is incorrect"));
+            Motorcycle motorcycle = motorcycleRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("The motorcycle with this id: " + id + " is incorrect"));
+
+            Save save = saveRepository.findByUserAndMotorcycle(user, motorcycle);
+            if(save.getUser().getId().equals(Long.valueOf(userId))) {
+                saveRepository.delete(save);
+                return true;
+            } throw new UserMismatchException("User mismatch");
         } throw new UnauthorizedException("Unauthorized: invalid token");
     }
 }
