@@ -5,6 +5,7 @@ import com.rental.motocicly.exception.UnauthorizedException;
 import com.rental.motocicly.models.Motorcycle;
 import com.rental.motocicly.services.MotorcycleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,15 @@ public class MotorcycleController {
     public ResponseEntity<?> getMotorcycle(@PathVariable Long id, @RequestHeader(value="Authorization") String token) {
         try {
             return ResponseEntity.ok(motorcycleService.getMotorcycle(id, token));
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchByMotorcycleName(@RequestParam String word, @RequestHeader(value = "Authorization") String token) {
+        try {
+            return ResponseEntity.ok(motorcycleService.searchByMotorcycleName(word, token));
         } catch (UnauthorizedException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
         }

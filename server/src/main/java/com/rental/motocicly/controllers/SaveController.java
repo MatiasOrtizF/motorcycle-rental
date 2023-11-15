@@ -46,15 +46,15 @@ public class SaveController {
 
     @DeleteMapping
     public ResponseEntity<String> unsaveMotorcycle(@RequestParam Long motorcycleId, @RequestHeader(value = "Authorization") String token) {
-            try {
-                saveService.unsaveMotorcycle(motorcycleId, token);
-                return ResponseEntity.ok().build();
-            } catch (UserMismatchException e) {
-                    return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User Mismatch");
-            } catch (ResourceNotFoundException e) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Motorcycle or User does not exist");
-            } catch (UnauthorizedException e) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
-            }
+        try {
+            saveService.unsaveMotorcycle(motorcycleId, token);
+            return ResponseEntity.ok().build();
+        } catch (UserMismatchException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User Mismatch");
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Motorcycle or User does not exist");
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
+        }
     }
 }

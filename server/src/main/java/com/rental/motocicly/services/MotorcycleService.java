@@ -43,6 +43,12 @@ public class MotorcycleService {
         } throw new UnauthorizedException("Unauthorized: invalid token");
     }
 
+    public List<Motorcycle> searchByMotorcycleName(String word, String token) {
+        if(authService.validationToken(token)) {
+            return motorcycleRepository.findByMotorcycleName(word);
+        } throw new UnauthorizedException("Unauthorized: invalid token");
+    }
+
     public Motorcycle addMotorcycle(Motorcycle motorcycle, String token) {
         if(authService.validationToken(token)) {
             return motorcycleRepository.save(motorcycle);
