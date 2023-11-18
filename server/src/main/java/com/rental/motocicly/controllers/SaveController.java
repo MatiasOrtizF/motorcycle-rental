@@ -57,4 +57,13 @@ public class SaveController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
         }
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<?> motorcycleSaved(@PathVariable Long id, @RequestHeader(value = "Authorization") String token) {
+        try {
+            return ResponseEntity.ok().body(saveService.motorcycleSaved(id, token));
+        } catch (UnauthorizedException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized: invalid token");
+        }
+    }
 }

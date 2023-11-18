@@ -8,6 +8,7 @@ import com.rental.motocicly.models.Motorcycle;
 import com.rental.motocicly.models.Save;
 import com.rental.motocicly.models.User;
 import com.rental.motocicly.repository.MotorcycleRepository;
+import com.rental.motocicly.repository.RentalRepository;
 import com.rental.motocicly.repository.SaveRepository;
 import com.rental.motocicly.repository.UserRepository;
 import com.rental.motocicly.utils.JWTUtil;
@@ -24,16 +25,19 @@ public class SaveService {
     private final JWTUtil jwtUtil;
     private final MotorcycleRepository motorcycleRepository;
     private final UserRepository userRepository;
+    private final RentalRepository rentalRepository;
 
     @Autowired
     public SaveService(SaveRepository saveRepository, AuthService authService, JWTUtil jwtUtil,
                        MotorcycleRepository motorcycleRepository,
-                       UserRepository userRepository) {
+                       UserRepository userRepository,
+                       RentalRepository rentalRepository) {
         this.saveRepository = saveRepository;
         this.authService = authService;
         this.jwtUtil = jwtUtil;
         this.motorcycleRepository = motorcycleRepository;
         this.userRepository = userRepository;
+        this.rentalRepository = rentalRepository;
     }
 
     public List<Save> getAllSaveMotorcycleByUserId(String token) {
@@ -70,6 +74,15 @@ public class SaveService {
                 saveRepository.delete(save);
                 return true;
             } throw new UserMismatchException("User mismatch");
+        } throw new UnauthorizedException("Unauthorized: invalid token");
+    }
+
+    public boolean motorcycleSaved(Long id, String token) {
+        if(authService.validationToken(token)) {
+            String userId = jwtUtil.getKey(token);
+            if(saveRepository.existsByMotorcycleIdAndUserId(id, Long.valueOf(userId))) {
+                return true;
+            } return false;
         } throw new UnauthorizedException("Unauthorized: invalid token");
     }
 }
